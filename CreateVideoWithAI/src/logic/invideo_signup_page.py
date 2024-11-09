@@ -9,7 +9,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 class InvideoSignupPage:
     EMAIL_INPUT = '//input[@name="email_id"]'
     CODE_INPUT = '//input[@name="code"]'
-    CREATE_ACCOUNT_BEFORE_CODE_BUTTON = '//button[contains(text(), "Create account")]'
+    CREATE_ACCOUNT_BUTTON = '//button[contains(text(), "Create account")]'
 
     def __init__(self, driver):
         """
@@ -33,7 +33,7 @@ class InvideoSignupPage:
         Waits for the "Create account" button to be clickable and clicks it.
         """
         WebDriverWait(self.driver, 15).until(
-            EC.element_to_be_clickable((By.XPATH, self.CREATE_ACCOUNT_BEFORE_CODE_BUTTON))
+            EC.element_to_be_clickable((By.XPATH, self.CREATE_ACCOUNT_BUTTON))
         ).click()
 
     def fill_verification_code_input(self, verification_code):
@@ -51,6 +51,16 @@ class InvideoSignupPage:
         :param email_text: The email address to be entered into the email input field.
         """
         self.fill_email_input(email_text)  # Fill in the email
+        time.sleep(1)
+
+        self.click_create_account_button()  # Click the "Create account" button
+
+    def submit_code_signup_flow(self, verification_code):
+        """
+        Completes the signup flow by entering the email and clicking the "Create account" button.
+        :param verification_code: The code which has been sent to the email.
+        """
+        self.fill_verification_code_input(verification_code)  # Fill in the email
         time.sleep(1)
 
         self.click_create_account_button()  # Click the "Create account" button

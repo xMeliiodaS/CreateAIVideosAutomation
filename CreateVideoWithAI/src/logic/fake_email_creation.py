@@ -21,21 +21,33 @@ class FakeEmailCreation:
         """
         self.driver = driver
 
-    def wait_for_mail(self, timeout=60):
+    def wait_for_mail(self, retries=5, wait_time=5):
         """
         Waits for the verification mail to appear in the inbox.
 
-        :param timeout: Maximum time (in seconds) to wait for the mail to appear.
+        :param retries: Maximum number of retry attempts.
+        :param wait_time: Time in seconds to wait between retries.
         :return: True if mail is found, False if timed out.
         """
         try:
-            WebDriverWait(self.driver, timeout).until(
-                EC.presence_of_element_located((By.XPATH, self.VERIFIED_MAIL_CODE))
-            )
-            print("Verification mail received.")
-            return True
-        except TimeoutException:
-            print("Timed out waiting for the verification mail.")
+            attempts = 0
+            while attempts < retries:
+                try:
+                    # Wait for the mail to be present in the inbox
+                    WebDriverWait(self.driver, wait_time).until(
+                        EC.presence_of_element_located((By.XPATH, self.VERIFIED_MAIL_CODE))
+                    )
+                    print("Verification mail received.")
+                    return True  # Exit if mail is found
+                except TimeoutException:
+                    print(f"Attempt {attempts + 1} failed. Retrying...")
+                    attempts += 1
+                    if attempts >= retries:
+                        print("Max retries reached. Verification mail not found.")
+                        return False  # Return False after max retries
+                    time.sleep(wait_time)  # Wait before retrying
+        except Exception as e:
+            print(f"Error during mail waiting: {e}")
             return False
 
     def copy_mail(self):

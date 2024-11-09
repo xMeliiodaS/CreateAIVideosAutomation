@@ -3,6 +3,7 @@ from infra.config_provider import ConfigProvider
 from src.logic.fake_email_creation import FakeEmailCreation
 from src.logic.invideo_signup_page import InvideoSignupPage
 
+
 class VideoSignupAutomation:
     def __init__(self):
         self.config = None
@@ -31,10 +32,19 @@ class VideoSignupAutomation:
             self.browser.switch_to_tab(1)
 
             # Create an instance for InVideo signup and fill in the form
-            signup_page = InvideoSignupPage(self.driver)
-            signup_page.submit_email_signup_flow(copied_email)
+            invideo_signup_page = InvideoSignupPage(self.driver)
+            invideo_signup_page.submit_email_signup_flow(copied_email)
 
             self.browser.switch_to_tab(0)
+
+            verification_code = ''
+            if email_page.wait_for_mail(retries=5, wait_time=5):
+                verification_code = email_page.extract_code_from_mail()  # Extract the code
+
+            self.browser.switch_to_tab(1)
+
+            invideo_signup_page.submit_code_signup_flow(verification_code)
+
 
         except Exception as e:
             print(f"An error occurred during execution: {e}")
@@ -44,10 +54,12 @@ class VideoSignupAutomation:
             # Ensure browser is closed even if an error occurs
             self.browser.close_browser()
 
+
 def main():
     automation = VideoSignupAutomation()
     automation.get_driver_and_config()
     automation.run()
+
 
 if __name__ == "__main__":
     main()
