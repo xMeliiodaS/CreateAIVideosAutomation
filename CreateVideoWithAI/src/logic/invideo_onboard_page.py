@@ -6,12 +6,12 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.support.wait import WebDriverWait
 
 
-class InvideoSignupPage:
+class InvideoOnboardPage:
     NAME_TEXT_INPUT = '//input[@id="userFullName"]'
     CONTINUE_BUTTON = '//button[@type="submit"]'
     SELECT_REASON_BUTTON = '//div[@type="button"]'
     SELECTION_LIST = '//DIV[@role="menuitem"]' # Random 1 - 6
-    WAYS_TO_USE_INVIDEO_LIST_BUTTONS = '//div[@class="c-PJLV c-cQJzLy"]'
+    WAYS_TO_USE_INVIDEO_LIST_BUTTONS = '//div[@class="c-PJLV c-cQJzLy"]' # Random 1 - 6
 
     def __init__(self, driver):
         """
