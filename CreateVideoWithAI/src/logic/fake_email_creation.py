@@ -45,7 +45,7 @@ class FakeEmailCreation:
         :return: None
         """
         try:
-            WebDriverWait(self.driver, 3).until(
+            WebDriverWait(self.driver, 15).until(
                 EC.element_to_be_clickable((By.XPATH, self.COPY_MAIL_BUTTON))
             ).click()
 

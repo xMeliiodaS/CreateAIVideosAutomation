@@ -1,7 +1,7 @@
 import time
 
 
-def stop_page_load(driver, wait_time=10):
+def stop_page_load(driver, wait_time=1):
     """
     Stops the page from loading after a set amount of time.
     """

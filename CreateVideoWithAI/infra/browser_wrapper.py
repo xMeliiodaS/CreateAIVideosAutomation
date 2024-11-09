@@ -17,6 +17,7 @@ class BrowserWrapper:
         """
         try:
             options = uc.ChromeOptions()
+            options.page_load_strategy = 'eager'
             options.add_argument("--disable-blink-features=AutomationControlled")
             self._driver = uc.Chrome(options=options)
             self._driver.get(url)
