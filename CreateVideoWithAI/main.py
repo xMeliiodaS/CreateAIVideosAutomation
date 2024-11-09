@@ -26,7 +26,7 @@ def main():
 
         # Create an instance for InVideo signup and fill in the form
         signup_page = InvideoSignupPage(driver)
-        signup_page.fill_email_input(copied_email)
+        signup_page.submit_email_signup_flow(copied_email)
 
 
     except Exception as e:
