@@ -1,19 +1,31 @@
-import openai
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
-openai.api_key = "your-api-key"
+# Load DistilGPT2 model and tokenizer
+tokenizer = AutoTokenizer.from_pretrained("distilbert/distilgpt2")
+model = AutoModelForCausalLM.from_pretrained("distilbert/distilgpt2")
 
-def generate_name():
-    response = openai.Completion.create(
-        engine="text-davinci-003",  # Use GPT-3 engine
-        prompt="Generate a random name.",
-        max_tokens=1
-    )
-    return response.choices[0].text.strip()
+# Input text
+input_text = "Generate a random number."
 
-def generate_video_topics():
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt="Give me 5 unique and interesting YouTube video topics about technology.",
-        max_tokens=1
-    )
-    return response.choices[0].text.strip()
+# Tokenize the input
+inputs = tokenizer(input_text, return_tensors="pt", add_special_tokens=True)
+
+# Forward pass (no gradients needed)
+with torch.no_grad():
+    outputs = model(**inputs)
+    logits = outputs.logits
+
+# Find the predicted token (highest logit) for the next word
+predicted_token_class_ids = logits.argmax(-1)
+
+# Decode the predicted token IDs to text
+predicted_tokens = tokenizer.decode(predicted_token_class_ids[0], skip_special_tokens=True)
+
+# Print the generated text
+print(predicted_tokens)
+
+# Calculate the loss for the input
+labels = predicted_token_class_ids
+loss = model(**inputs, labels=labels).loss
+print(f"Loss: {round(loss.item(), 2)}")

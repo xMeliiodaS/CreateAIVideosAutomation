@@ -7,3 +7,9 @@ class ConfigProvider:
         with open('C:\\Users\\user\\Documents\\GitHub\\CreateAIVideosAutomation\\'
                   'CreateVideoWithAI\\config.json', 'r') as file:
             return json.load(file)
+
+    @staticmethod
+    def load_secret_config_json():
+        with open('C:\\Users\\user\\Documents\\GitHub\\CreateAIVideosAutomation\\'
+                  'CreateVideoWithAI\\secret.json', 'r') as file:
+            return json.load(file)
