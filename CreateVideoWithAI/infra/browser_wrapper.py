@@ -1,4 +1,6 @@
 import os
+import time
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import undetected_chromedriver as uc
@@ -62,4 +64,5 @@ class BrowserWrapper:
 
     def close_browser(self):
         if self._driver:
+            time.sleep(3)
             self._driver.quit()

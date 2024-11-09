@@ -34,7 +34,7 @@ class InvideoSignupPage:
         """
         WebDriverWait(self.driver, 15).until(
             EC.element_to_be_clickable((By.XPATH, self.CREATE_ACCOUNT_BEFORE_CODE_BUTTON))
-        )
+        ).click()
 
     def fill_verification_code_input(self, verification_code):
         """
