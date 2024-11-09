@@ -64,5 +64,5 @@ class BrowserWrapper:
 
     def close_browser(self):
         if self._driver:
-            time.sleep(3)
+            time.sleep(10)
             self._driver.quit()
