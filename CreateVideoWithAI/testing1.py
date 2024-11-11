@@ -1,7 +1,11 @@
 from transformers import pipeline
+import torch
+import random
 
 
 def generate_random_names():
+    seed = random.randint(5000, 2 ** 32 - 1)
+    torch.manual_seed(seed)
     text_generator = pipeline("text-generation", model="EleutherAI/gpt-neo-125M")
     res = text_generator(
         "Once upon a time, in a small village, there was a young boy named",
@@ -13,3 +17,6 @@ def generate_random_names():
         return_full_text=False  # Only return the completion, not the prompt
     )
     print(res)
+
+
+generate_random_names()
