@@ -2,6 +2,7 @@ from infra.browser_wrapper import BrowserWrapper
 from infra.config_provider import ConfigProvider
 from src.logic.fake_email_creation import FakeEmailCreation
 from src.logic.invideo_signup_page import InvideoSignupPage
+from src.logic.invideo_onboard_page import InvideoOnboardPage
 
 
 class VideoSignupAutomation:
@@ -44,6 +45,8 @@ class VideoSignupAutomation:
             self.browser.switch_to_tab(1)
 
             invideo_signup_page.submit_code_signup_flow(verification_code)
+
+            invideo_onboard_page = InvideoOnboardPage(self.driver)
 
 
         except Exception as e:
