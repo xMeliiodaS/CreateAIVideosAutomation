@@ -89,3 +89,6 @@ class InvideoOnboardPage:
 
         self.click_continue_button()
         self.select_random_method_to_use_invideo()
+        time.sleep(1)
+
+        self.click_continue_button()

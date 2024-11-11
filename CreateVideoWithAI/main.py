@@ -48,6 +48,7 @@ class VideoSignupAutomation:
 
             invideo_onboard_page = InvideoOnboardPage(self.driver)
 
+            invideo_onboard_page.onboard_setup_workflow()
 
         except Exception as e:
             print(f"An error occurred during execution: {e}")

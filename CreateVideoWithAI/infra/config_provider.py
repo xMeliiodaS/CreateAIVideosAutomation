@@ -4,7 +4,7 @@ import json
 class ConfigProvider:
     @staticmethod
     def load_config_json():
-        with open('C:\\Users\\user\\Documents\\GitHub\\CreateAIVideosAutomation\\'
+        with open('C:\\Users\\Bahaa\\Desktop\\AI_Projects\\CreateAIVideosAutomation\\'
                   'CreateVideoWithAI\\config.json', 'r') as file:
             return json.load(file)
 

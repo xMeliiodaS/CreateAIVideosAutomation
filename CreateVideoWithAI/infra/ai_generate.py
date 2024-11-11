@@ -34,6 +34,3 @@ def generate_random_name_ai():
 
     # If no valid name was found after retries
     return "No valid name found"
-
-
-generate_random_names()
