@@ -1,3 +1,6 @@
+from infra.logger_setup import logger_setup
+import logging
+
 from transformers import pipeline
 import torch
 import random
@@ -6,7 +9,6 @@ import random
 def generate_random_name_ai():
     text_generator = pipeline("text-generation", model="EleutherAI/gpt-neo-125M")
     retries = 10  # Maximum number of attempts
-    name = ''
 
     for _ in range(retries):
         seed = random.randint(5000, 2 ** 32 - 1)
@@ -28,9 +30,12 @@ def generate_random_name_ai():
 
         print(f"Generated name: {name}")
 
-        # Check if the name is longer than 3 characters
-        if len(name) > 3:
+        # Check if the name is equal or longer than 3 characters
+        if len(name) >= 3:
             return name
 
     # If no valid name was found after retries
-    return "No valid name found"
+    return "James"
+
+
+generate_random_name_ai()

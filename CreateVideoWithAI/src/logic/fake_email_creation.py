@@ -1,10 +1,11 @@
-import time
+from infra.logger_setup import logger_setup
+import logging
 
+import time
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.support.wait import WebDriverWait
-
 from infra.utils import stop_page_load
 import pyperclip
 
@@ -65,6 +66,7 @@ class FakeEmailCreation:
             copied_email = pyperclip.paste()
 
             if copied_email:
+                logging.info(f"Copied Email: {copied_email}")
                 return copied_email
 
         except NoSuchElementException:
@@ -113,7 +115,7 @@ class FakeEmailCreation:
                 match = re.search(r'\b\d{6}\b', email_link_text)
                 if match:
                     code = match.group(0)
-                    print(f"Extracted code: {code}")
+                    logging.info(f"Received verification code in email inbox: {code}")
                 else:
                     print("No 6-digit code found in the email link text.")
 
@@ -129,4 +131,7 @@ class FakeEmailCreation:
         :return: True if the email was successfully copied, False otherwise.
         """
         stop_page_load(self.driver)
-        return self.copy_mail()
+        copied_email = self.copy_mail()
+        logging.info(f"Copied email {copied_email}")
+
+        return copied_email

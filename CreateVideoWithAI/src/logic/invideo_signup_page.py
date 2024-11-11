@@ -1,3 +1,5 @@
+from infra.logger_setup import logger_setup
+import logging
 import time
 
 from selenium.webdriver.support import expected_conditions as EC
@@ -52,7 +54,9 @@ class InvideoSignupPage:
         self.fill_email_input(email_text)  # Fill in the email
         time.sleep(1)
 
+
         self.click_create_account_button()  # Click the "Create account" button
+        logging.info("Entered email on InVideo signup page and proceeded")
 
     def submit_code_signup_flow(self, verification_code):
         """
@@ -63,3 +67,4 @@ class InvideoSignupPage:
         time.sleep(1)
 
         self.click_create_account_button()  # Click the "Create account" button
+        logging.info("Filled verification code in InVideo signup page and proceeded")

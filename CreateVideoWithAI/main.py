@@ -32,7 +32,6 @@ class VideoSignupAutomation:
         """
         email_page = FakeEmailCreation(self.driver)
         copied_email = email_page.copy_email_flow()
-        print(f"Copied Email: {copied_email}")
         return copied_email
 
     def open_invideo_signup_page(self):
@@ -101,6 +100,7 @@ class VideoSignupAutomation:
 
 
 def main():
+    logging.info("------------------------------SETUP------------------------------")
     automation = VideoSignupAutomation()
     automation.get_driver_and_config()
     automation.run()

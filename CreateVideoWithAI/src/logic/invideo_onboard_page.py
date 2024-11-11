@@ -1,3 +1,4 @@
+import logging
 import time
 
 from selenium.webdriver.support import expected_conditions as EC
@@ -80,6 +81,7 @@ class InvideoOnboardPage:
         Automates the onboarding setup process by filling the name, selecting options,
         and clicking through the workflow steps with random selections.
         """
+        logging.info("InVideo onboard setup in progress..")
         self.fill_name_input()
         time.sleep(1)
 
@@ -95,3 +97,4 @@ class InvideoOnboardPage:
         time.sleep(1)
 
         self.click_continue_button()
+        logging.info("InVideo onboard setup done!")
