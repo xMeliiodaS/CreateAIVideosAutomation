@@ -4,19 +4,36 @@ import random
 
 
 def generate_random_names():
-    seed = random.randint(5000, 2 ** 32 - 1)
-    torch.manual_seed(seed)
     text_generator = pipeline("text-generation", model="EleutherAI/gpt-neo-125M")
-    res = text_generator(
-        "Once upon a time, in a small village, there was a young boy named",
-        #   max_length=1,
-        max_new_tokens=1,  # Limit the output to just one word
-        do_sample=True,  # Enable sampling for variety
-        temperature=0.8,  # Controls randomness (higher values result in more creative output)
-        top_p=0.9,  # Nucleus sampling to focus on the top possibilities
-        return_full_text=False  # Only return the completion, not the prompt
-    )
-    print(res)
+    retries = 10  # Maximum number of attempts
+    name = ''
+
+    for _ in range(retries):
+        seed = random.randint(5000, 2 ** 32 - 1)
+        torch.manual_seed(seed)
+
+        # Generate text with the model
+        res = text_generator(
+            "Once upon a time, in a small village, there was a young boy named",
+            max_new_tokens=1,  # Limit the output to just one word
+            do_sample=True,
+            temperature=0.8,
+            top_p=0.9,
+            return_full_text=False
+        )
+
+        # Extract the generated name
+        generated_text = res[0]['generated_text'].strip()
+        name = generated_text.split()[0]  # Get the first word
+
+        print(f"Generated name: {name}")
+
+        # Check if the name is longer than 3 characters
+        if len(name) > 3:
+            return name
+
+    # If no valid name was found after retries
+    return "No valid name found"
 
 
 generate_random_names()
