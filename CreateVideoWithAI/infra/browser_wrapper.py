@@ -1,9 +1,8 @@
-import os
 import time
 
-from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import undetected_chromedriver as uc
+
 
 class BrowserWrapper:
     """
@@ -60,7 +59,6 @@ class BrowserWrapper:
         Switches to a specific tab by its index.
         """
         self._driver.switch_to.window(self._driver.window_handles[tab_index])
-
 
     def close_browser(self):
         if self._driver:

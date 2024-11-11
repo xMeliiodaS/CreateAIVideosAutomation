@@ -2,7 +2,6 @@ import time
 
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.support.wait import WebDriverWait
 from infra.ai_generate import generate_random_name_ai
 from src.utils import generate_random_number
@@ -77,6 +76,10 @@ class InvideoOnboardPage:
 
 
     def onboard_setup_workflow(self):
+        """
+        Automates the onboarding setup process by filling the name, selecting options,
+        and clicking through the workflow steps with random selections.
+        """
         self.fill_name_input()
         time.sleep(1)
 
