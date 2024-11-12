@@ -1,4 +1,3 @@
-from infra.logger_setup import logger_setup
 import logging
 
 from infra.browser_wrapper import BrowserWrapper
@@ -6,6 +5,7 @@ from infra.config_provider import ConfigProvider
 from src.logic.fake_email_creation import FakeEmailCreation
 from src.logic.invideo_signup_page import InvideoSignupPage
 from src.logic.invideo_onboard_page import InvideoOnboardPage
+from git_automation import pull_prompts_repo
 
 
 class VideoSignupAutomation:
@@ -13,6 +13,7 @@ class VideoSignupAutomation:
         self.config = None
         self.browser = None
         self.driver = None
+
 
     def get_driver_and_config(self):
         """
@@ -89,6 +90,8 @@ class VideoSignupAutomation:
             self.submit_verification_code(verification_code)
 
             self.complete_onboarding()
+
+            pull_prompts_repo()
 
         except Exception as e:
             print(f"An error occurred during execution: {e}")

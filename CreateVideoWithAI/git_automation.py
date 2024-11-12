@@ -3,7 +3,7 @@ import subprocess
 import logging
 
 
-PROMPTS_DIR = 'prompts'  # Update this path if needed
+PROMPTS_DIR = 'src/prompts/automation_prompts'  # Update this path if needed
 
 
 def pull_prompts_repo():
@@ -24,8 +24,4 @@ def pull_prompts_repo():
         logging.error(f"Failed to pull updates: {e}")
     finally:
         # Navigate back to the original directory
-        os.chdir('..')
-
-
-if __name__ == "__main__":
-    pull_prompts_repo()
+        os.chdir('')
