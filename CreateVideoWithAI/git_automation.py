@@ -24,4 +24,4 @@ def pull_prompts_repo():
         logging.error(f"Failed to pull updates: {e}")
     finally:
         # Navigate back to the original directory
-        os.chdir('')
+        os.chdir('..')
