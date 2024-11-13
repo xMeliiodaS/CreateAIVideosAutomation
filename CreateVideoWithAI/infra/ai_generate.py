@@ -38,7 +38,7 @@ def generate_random_name_ai():
     return "James"
 
 
-def determine_video_context (title, audience_labels, style_labels):
+def determine_video_context(title, audience_labels, style_labels):
     # Initialize the zero-shot classifier
     classifier = pipeline("zero-shot-classification")
 
